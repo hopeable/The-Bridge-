@@ -24,105 +24,143 @@
         }
 
         .nav-link.active { color: #008751; font-weight: 700; border-bottom: 2px solid #008751; }
+        
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900 overflow-x-hidden">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
             <div class="flex items-center space-x-2 cursor-pointer" onclick="navigateTo('home')">
-                <div class="w-10 h-10 bg-nigeria-green rounded-full flex items-center justify-center shadow-md">
-                    <i data-lucide="bridge" class="text-white w-6 h-6"></i>
+                <div class="w-8 h-8 md:w-10 md:h-10 bg-nigeria-green rounded-full flex items-center justify-center shadow-md">
+                    <i data-lucide="bridge" class="text-white w-5 h-5 md:w-6 md:h-6"></i>
                 </div>
-                <span class="text-xl font-bold tracking-tight">THE BRIDGE <span class="text-nigeria-green uppercase">Nigeria</span></span>
+                <span class="text-lg md:text-xl font-bold tracking-tight">THE BRIDGE <span class="text-nigeria-green uppercase hidden sm:inline">Nigeria</span></span>
             </div>
             
+            <!-- Desktop Nav -->
             <div class="hidden md:flex space-x-8 font-medium">
-                <button onclick="navigateTo('home')" class="nav-link px-1 py-1 transition hover:text-nigeria-green active-link" id="nav-home">Home</button>
+                <button onclick="navigateTo('home')" class="nav-link px-1 py-1 transition hover:text-nigeria-green active" id="nav-home">Home</button>
                 <button onclick="navigateTo('about')" class="nav-link px-1 py-1 transition hover:text-nigeria-green" id="nav-about">About Us</button>
                 <button onclick="navigateTo('programs')" class="nav-link px-1 py-1 transition hover:text-nigeria-green" id="nav-programs">Programs</button>
                 <button onclick="navigateTo('impact')" class="nav-link px-1 py-1 transition hover:text-nigeria-green" id="nav-impact">Our Impact</button>
                 <button onclick="navigateTo('contact')" class="nav-link px-1 py-1 transition hover:text-nigeria-green" id="nav-contact">Contact</button>
             </div>
 
-            <button onclick="toggleModal('donate-modal')" class="bg-nigeria-green text-white px-6 py-2.5 rounded-full font-semibold hover:scale-105 transition shadow-lg">
-                Donate Now
-            </button>
+            <!-- Nav Actions -->
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleModal('donate-modal')" class="bg-nigeria-green text-white px-4 md:px-6 py-2 rounded-full font-semibold text-sm md:text-base hover:scale-105 transition shadow-lg">
+                    Donate
+                </button>
+                <!-- Hamburger Menu Button -->
+                <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 text-gray-600">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-white flex flex-col p-8 md:hidden">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xl font-bold">Menu</span>
+            <button onclick="toggleMobileMenu(false)" class="p-2 text-gray-600">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-6 text-2xl font-bold">
+            <button onclick="navigateTo('home'); toggleMobileMenu(false)" class="text-left border-b border-gray-100 pb-2">Home</button>
+            <button onclick="navigateTo('about'); toggleMobileMenu(false)" class="text-left border-b border-gray-100 pb-2">About Us</button>
+            <button onclick="navigateTo('programs'); toggleMobileMenu(false)" class="text-left border-b border-gray-100 pb-2">Programs</button>
+            <button onclick="navigateTo('impact'); toggleMobileMenu(false)" class="text-left border-b border-gray-100 pb-2">Our Impact</button>
+            <button onclick="navigateTo('contact'); toggleMobileMenu(false)" class="text-left border-b border-gray-100 pb-2">Contact</button>
+        </div>
+        <div class="mt-auto">
+            <button onclick="toggleModal('donate-modal'); toggleMobileMenu(false)" class="w-full bg-nigeria-green text-white py-4 rounded-xl font-bold text-xl">Donate Now</button>
+        </div>
+    </div>
+
     <!-- CONTENT WRAPPER -->
-    <main class="pt-24">
+    <main class="pt-20 md:pt-24">
         
         <!-- HOME PAGE -->
         <section id="page-home" class="page-view active">
-            <div class="relative h-[85vh] flex items-center overflow-hidden">
+            <div class="relative min-h-[70vh] md:h-[85vh] flex items-center overflow-hidden px-4 md:px-0">
                 <div class="absolute inset-0 z-0">
                     <img src="https://images.unsplash.com/photo-1524069290683-0457abfe42c3?auto=format&fit=crop&q=80&w=2000" alt="Nigerian Landscape" class="w-full h-full object-cover opacity-30">
-                    <div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-white via-white/80 to-transparent"></div>
                 </div>
-                <div class="max-w-7xl mx-auto px-6 relative z-10">
-                    <div class="max-w-2xl">
-                        <span class="text-nigeria-green font-bold tracking-widest uppercase text-sm">Empowering Communities</span>
-                        <h1 class="text-6xl md:text-7xl mt-4 mb-6 leading-tight">A Shared <span class="italic text-nigeria-gold">Vision</span> for Nigeria</h1>
-                        <p class="text-xl text-gray-600 mb-8 leading-relaxed">Join us in creating sustainable solutions for education, health, and youth empowerment across every state in Nigeria.</p>
-                        <div class="flex space-x-4">
-                            <button onclick="navigateTo('programs')" class="bg-gray-900 text-white px-8 py-4 rounded-xl font-bold hover:shadow-xl transition">Our Initiatives</button>
-                            <button onclick="navigateTo('about')" class="border-2 border-gray-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-900 hover:text-white transition">Learn Our Story</button>
+                <div class="max-w-7xl mx-auto md:px-6 relative z-10 w-full">
+                    <div class="max-w-2xl text-center md:text-left">
+                        <span class="text-nigeria-green font-bold tracking-widest uppercase text-xs md:text-sm">Empowering Communities</span>
+                        <h1 class="text-4xl md:text-7xl mt-4 mb-6 leading-tight">A Shared <span class="italic text-nigeria-gold">Vision</span> for Nigeria</h1>
+                        <p class="text-base md:text-xl text-gray-600 mb-8 leading-relaxed">Join us in creating sustainable solutions for education, health, and youth empowerment across every state in Nigeria.</p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <button onclick="navigateTo('programs')" class="bg-gray-900 text-white px-8 py-4 rounded-xl font-bold hover:shadow-xl transition w-full sm:w-auto">Our Initiatives</button>
+                            <button onclick="navigateTo('about')" class="border-2 border-gray-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-900 hover:text-white transition w-full sm:w-auto">Learn Our Story</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="py-20 bg-white">
-                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
-                    <div class="text-center p-8 bg-gray-50 rounded-3xl">
-                        <i data-lucide="users" class="mx-auto w-12 h-12 text-nigeria-green mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-2">15,000+</h3>
-                        <p class="text-gray-500">Beneficiaries Reached</p>
+            <div class="py-12 md:py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-12">
+                    <div class="text-center p-6 md:p-8 bg-gray-50 rounded-3xl">
+                        <i data-lucide="users" class="mx-auto w-10 h-10 md:w-12 md:h-12 text-nigeria-green mb-4"></i>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2">15,000+</h3>
+                        <p class="text-gray-500 text-sm">Beneficiaries Reached</p>
                     </div>
-                    <div class="text-center p-8 bg-gray-50 rounded-3xl">
-                        <i data-lucide="map-pin" class="mx-auto w-12 h-12 text-nigeria-green mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-2">24</h3>
-                        <p class="text-gray-500">Communities Served</p>
+                    <div class="text-center p-6 md:p-8 bg-gray-50 rounded-3xl">
+                        <i data-lucide="map-pin" class="mx-auto w-10 h-10 md:w-12 md:h-12 text-nigeria-green mb-4"></i>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2">24</h3>
+                        <p class="text-gray-500 text-sm">Communities Served</p>
                     </div>
-                    <div class="text-center p-8 bg-gray-50 rounded-3xl">
-                        <i data-lucide="award" class="mx-auto w-12 h-12 text-nigeria-green mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-2">120</h3>
-                        <p class="text-gray-500">Certified Volunteers</p>
+                    <div class="text-center p-6 md:p-8 bg-gray-50 rounded-3xl">
+                        <i data-lucide="award" class="mx-auto w-10 h-10 md:w-12 md:h-12 text-nigeria-green mb-4"></i>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2">120</h3>
+                        <p class="text-gray-500 text-sm">Certified Volunteers</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ABOUT PAGE -->
-        <section id="page-about" class="page-view py-12">
-            <div class="max-w-7xl mx-auto px-6">
-                <h2 class="text-5xl font-bold mb-12 border-l-8 border-nigeria-green pl-6">Our Story</h2>
-                <div class="grid md:grid-cols-2 gap-16 items-start">
+        <section id="page-about" class="page-view py-8 md:py-12">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <h2 class="text-3xl md:text-5xl font-bold mb-8 md:mb-12 border-l-4 md:border-l-8 border-nigeria-green pl-4 md:pl-6">Our Story</h2>
+                <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
                     <div>
-                        <p class="text-xl text-gray-600 mb-6 leading-relaxed">
+                        <p class="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
                             Established in 2018, The Bridge Nigeria Initiative was born out of a desire to see equitable development across all geopolitical zones of Nigeria. 
                         </p>
                         <p class="text-gray-600 mb-8 leading-relaxed">
-                            We focus on long-term systemic change rather than short-term aid. By partnering with local leaders, we ensure that every project we start is owned and maintained by the community it serves.
+                            We focus on long-term systemic change rather than short-term aid. By partnering with local leaders, we ensure projects are sustainable.
                         </p>
-                        <div class="grid grid-cols-2 gap-8">
-                            <div class="bg-white p-6 rounded-2xl shadow-sm">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                                 <h4 class="font-bold text-nigeria-green mb-2">Our Mission</h4>
-                                <p class="text-sm text-gray-500">To bridge the gap in basic human needs through innovation and community action.</p>
+                                <p class="text-xs md:text-sm text-gray-500">To bridge the gap in basic human needs through innovation and community action.</p>
                             </div>
-                            <div class="bg-white p-6 rounded-2xl shadow-sm">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                                 <h4 class="font-bold text-nigeria-green mb-2">Our Values</h4>
-                                <p class="text-sm text-gray-500">Transparency, Inclusion, Integrity, and Excellence in all our operations.</p>
+                                <p class="text-xs md:text-sm text-gray-500">Transparency, Inclusion, Integrity, and Excellence.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1000" class="rounded-3xl shadow-2xl" alt="Team meeting">
-                        <div class="absolute -bottom-6 -left-6 bg-nigeria-gold p-8 rounded-2xl text-white shadow-xl max-w-xs">
-                            <p class="font-bold text-lg italic">"Connecting the heart of the community with the resources to thrive."</p>
+                    <div class="relative mt-8 lg:mt-0">
+                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1000" class="rounded-3xl shadow-xl w-full" alt="Team meeting">
+                        <div class="hidden sm:block absolute -bottom-6 -left-6 bg-nigeria-gold p-6 md:p-8 rounded-2xl text-white shadow-xl max-w-xs">
+                            <p class="font-bold text-base md:text-lg italic">"Connecting the heart of the community with resources."</p>
                         </div>
                     </div>
                 </div>
@@ -130,99 +168,103 @@
         </section>
 
         <!-- PROGRAMS PAGE -->
-        <section id="page-programs" class="page-view py-12">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-5xl font-bold mb-6">Our Initiatives</h2>
-                    <p class="text-gray-600 text-lg">We manage six core programs designed to address the most critical needs in our society today.</p>
+        <section id="page-programs" class="page-view py-8 md:py-12">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div class="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Our Initiatives</h2>
+                    <p class="text-gray-600 text-sm md:text-lg">Sustainable solutions for Nigeria's most critical needs.</p>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Initiatives Loop -->
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 hover:shadow-2xl transition group">
-                        <div class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-nigeria-green transition">
-                            <i data-lucide="book-open" class="text-nigeria-green w-8 h-8 group-hover:text-white"></i>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Initiatives Card 1 -->
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 hover:shadow-xl transition group">
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-green-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-nigeria-green transition">
+                            <i data-lucide="book-open" class="text-nigeria-green w-7 h-7 md:w-8 md:h-8 group-hover:text-white"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Education Bridge</h3>
-                        <p class="text-gray-500 mb-6">Providing textbooks, scholarships, and training for local teachers in underserved LGAs.</p>
-                        <button onclick="toggleModal('info-modal', 'Education Bridge', 'We have successfully renovated 15 rural schools and provided 5000+ school kits to students.')" class="text-nigeria-green font-bold text-sm">Details →</button>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4">Education Bridge</h3>
+                        <p class="text-gray-500 text-sm md:text-base mb-6">Textbooks, scholarships, and training for local teachers in underserved LGAs.</p>
+                        <button onclick="toggleModal('info-modal', 'Education Bridge', 'Renovated 15 rural schools and provided 5000+ school kits.')" class="text-nigeria-green font-bold text-sm">Details →</button>
                     </div>
 
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 hover:shadow-2xl transition group">
-                        <div class="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-nigeria-gold transition">
-                            <i data-lucide="heart" class="text-nigeria-gold w-8 h-8 group-hover:text-white"></i>
+                    <!-- Initiatives Card 2 -->
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 hover:shadow-xl transition group">
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-nigeria-gold transition">
+                            <i data-lucide="heart" class="text-nigeria-gold w-7 h-7 md:w-8 md:h-8 group-hover:text-white"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Health Access</h3>
-                        <p class="text-gray-500 mb-6">Mobile health clinics and immunization drives focused on maternal and child health.</p>
-                        <button onclick="toggleModal('info-modal', 'Health Access', 'Our health camps reach over 200 people daily in remote areas with free consultations.')" class="text-nigeria-green font-bold text-sm">Details →</button>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4">Health Access</h3>
+                        <p class="text-gray-500 text-sm md:text-base mb-6">Mobile health clinics focused on maternal and child health.</p>
+                        <button onclick="toggleModal('info-modal', 'Health Access', 'Our health camps reach 200+ people daily in remote areas.')" class="text-nigeria-green font-bold text-sm">Details →</button>
                     </div>
 
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 hover:shadow-2xl transition group">
-                        <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition">
-                            <i data-lucide="zap" class="text-blue-600 w-8 h-8 group-hover:text-white"></i>
+                    <!-- Initiatives Card 3 -->
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 hover:shadow-xl transition group">
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition">
+                            <i data-lucide="zap" class="text-blue-600 w-7 h-7 md:w-8 md:h-8 group-hover:text-white"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Youth Skills</h3>
-                        <p class="text-gray-500 mb-6">Empowering secondary school graduates with tech and vocational skills for the modern economy.</p>
-                        <button onclick="toggleModal('info-modal', 'Youth Skills', 'Over 80% of our graduates have gone on to start their own small businesses or find gainful employment.')" class="text-nigeria-green font-bold text-sm">Details →</button>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4">Youth Skills</h3>
+                        <p class="text-gray-500 text-sm md:text-base mb-6">Empowering graduates with tech and vocational skills.</p>
+                        <button onclick="toggleModal('info-modal', 'Youth Skills', 'Over 80% of graduates have started small businesses.')" class="text-nigeria-green font-bold text-sm">Details →</button>
                     </div>
 
-                    <!-- Row 2 -->
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 hover:shadow-2xl transition group">
-                        <div class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 transition">
-                            <i data-lucide="sprout" class="text-indigo-600 w-8 h-8 group-hover:text-white"></i>
+                    <!-- Initiatives Card 4 -->
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 hover:shadow-xl transition group">
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 transition">
+                            <i data-lucide="sprout" class="text-indigo-600 w-7 h-7 md:w-8 md:h-8 group-hover:text-white"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Eco-Farming</h3>
-                        <p class="text-gray-500 mb-6">Teaching sustainable agriculture to smallholder farmers to increase food security.</p>
-                        <button onclick="toggleModal('info-modal', 'Eco-Farming', 'We provide seeds and training on crop rotation to help farmers double their annual yields.')" class="text-nigeria-green font-bold text-sm">Details →</button>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4">Eco-Farming</h3>
+                        <p class="text-gray-500 text-sm md:text-base mb-6">Sustainable agriculture to increase food security.</p>
+                        <button onclick="toggleModal('info-modal', 'Eco-Farming', 'Training on crop rotation to double annual yields.')" class="text-nigeria-green font-bold text-sm">Details →</button>
                     </div>
 
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 hover:shadow-2xl transition group">
-                        <div class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 transition">
-                            <i data-lucide="droplet" class="text-red-600 w-8 h-8 group-hover:text-white"></i>
+                    <!-- Initiatives Card 5 -->
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 hover:shadow-xl transition group">
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 transition">
+                            <i data-lucide="droplet" class="text-red-600 w-7 h-7 md:w-8 md:h-8 group-hover:text-white"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Clean Water</h3>
-                        <p class="text-gray-500 mb-6">Installing boreholes and water purification systems in drought-prone regions.</p>
-                        <button onclick="toggleModal('info-modal', 'Clean Water', 'We have installed 45 clean water points across 5 states, reducing waterborne diseases by 40%.')" class="text-nigeria-green font-bold text-sm">Details →</button>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4">Clean Water</h3>
+                        <p class="text-gray-500 text-sm md:text-base mb-6">Boreholes and purification systems in drought-prone regions.</p>
+                        <button onclick="toggleModal('info-modal', 'Clean Water', '45 water points installed across 5 states.')" class="text-nigeria-green font-bold text-sm">Details →</button>
                     </div>
 
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 hover:shadow-2xl transition group">
-                        <div class="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 transition">
-                            <i data-lucide="shield" class="text-teal-600 w-8 h-8 group-hover:text-white"></i>
+                    <!-- Initiatives Card 6 -->
+                    <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 hover:shadow-xl transition group">
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-teal-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 transition">
+                            <i data-lucide="shield" class="text-teal-600 w-7 h-7 md:w-8 md:h-8 group-hover:text-white"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Advocacy</h3>
-                        <p class="text-gray-500 mb-6">Protecting the rights of the vulnerable through legal aid and community education.</p>
-                        <button onclick="toggleModal('info-modal', 'Advocacy', 'Our legal team provides free consultations for low-income families on land and family rights.')" class="text-nigeria-green font-bold text-sm">Details →</button>
+                        <h3 class="text-xl md:text-2xl font-bold mb-4">Advocacy</h3>
+                        <p class="text-gray-500 text-sm md:text-base mb-6">Protecting the rights of the vulnerable through legal aid.</p>
+                        <button onclick="toggleModal('info-modal', 'Advocacy', 'Free legal counseling for low-income families.')" class="text-nigeria-green font-bold text-sm">Details →</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- IMPACT PAGE -->
-        <section id="page-impact" class="page-view py-12">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid md:grid-cols-2 gap-16 mb-20 items-center">
+        <section id="page-impact" class="page-view py-8 md:py-12">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div class="grid lg:grid-cols-2 gap-12 md:gap-16 mb-12 md:mb-20 items-center">
                     <div>
-                        <h2 class="text-5xl font-bold mb-8">Measureable Change</h2>
-                        <p class="text-lg text-gray-600 mb-6">We track every naira and every hour spent to ensure maximum impact for our community. Transparency is our superpower.</p>
+                        <h2 class="text-3xl md:text-5xl font-bold mb-6 md:mb-8">Measureable Change</h2>
+                        <p class="text-base md:text-lg text-gray-600 mb-6">We track every naira and hour spent to ensure maximum impact.</p>
                         <div class="space-y-4">
-                            <div class="flex items-center space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                                <span class="w-12 h-12 bg-green-100 text-nigeria-green rounded-full flex items-center justify-center font-bold">92%</span>
-                                <p class="text-gray-600 font-medium">Funds go directly to program activities</p>
+                            <div class="flex items-center space-x-4 p-4 bg-white rounded-xl shadow-sm border border-gray-50">
+                                <span class="w-10 h-10 md:w-12 md:h-12 bg-green-100 text-nigeria-green rounded-full flex items-center justify-center font-bold text-sm md:text-base">92%</span>
+                                <p class="text-gray-600 text-sm md:text-base font-medium">Funds go directly to programs</p>
                             </div>
-                            <div class="flex items-center space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                                <span class="w-12 h-12 bg-amber-100 text-nigeria-gold rounded-full flex items-center justify-center font-bold">4.8</span>
-                                <p class="text-gray-600 font-medium">Average community satisfaction rating</p>
+                            <div class="flex items-center space-x-4 p-4 bg-white rounded-xl shadow-sm border border-gray-50">
+                                <span class="w-10 h-10 md:w-12 md:h-12 bg-amber-100 text-nigeria-gold rounded-full flex items-center justify-center font-bold text-sm md:text-base">4.8</span>
+                                <p class="text-gray-600 text-sm md:text-base font-medium">Community satisfaction rating</p>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-gray-900 rounded-3xl p-12 text-white">
-                        <h4 class="text-2xl font-bold mb-6">Annual Report 2023</h4>
+                    <div class="bg-gray-900 rounded-3xl p-8 md:p-12 text-white">
+                        <h4 class="text-xl md:text-2xl font-bold mb-6">Annual Report 2023</h4>
                         <div class="space-y-6">
                             <div class="w-full bg-gray-800 rounded-full h-2">
                                 <div class="bg-nigeria-green h-2 rounded-full" style="width: 85%"></div>
                             </div>
-                            <p class="text-sm opacity-80 italic">Over ₦45M raised for educational infrastructure.</p>
-                            <button class="bg-white text-gray-900 px-6 py-3 rounded-xl font-bold w-full hover:bg-nigeria-gold transition">Download Full Report (PDF)</button>
+                            <p class="text-xs md:text-sm opacity-80 italic">Over ₦45M raised for education infrastructure.</p>
+                            <button class="bg-white text-gray-900 px-6 py-3 rounded-xl font-bold w-full hover:bg-nigeria-gold transition text-sm md:text-base">Download Report (PDF)</button>
                         </div>
                     </div>
                 </div>
@@ -230,47 +272,47 @@
         </section>
 
         <!-- CONTACT PAGE -->
-        <section id="page-contact" class="page-view py-12">
-            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
+        <section id="page-contact" class="page-view py-8 md:py-12">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 md:gap-16">
                 <div>
-                    <h2 class="text-5xl font-bold mb-8">Get In Touch</h2>
-                    <p class="text-gray-600 mb-8">Have a question? Want to partner with us or volunteer? Send us a message and we'll get back to you within 48 hours.</p>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6 md:mb-8">Get In Touch</h2>
+                    <p class="text-gray-600 text-sm md:text-base mb-8">Want to partner with us or volunteer? Send a message below.</p>
                     <div class="space-y-6">
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-nigeria-green">
-                                <i data-lucide="mail"></i>
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-nigeria-green">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
                             </div>
-                            <p class="font-medium">contact@thebridgenigeria.org</p>
+                            <p class="font-medium text-sm md:text-base">contact@thebridgenigeria.org</p>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-nigeria-green">
-                                <i data-lucide="phone"></i>
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-nigeria-green">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
                             </div>
-                            <p class="font-medium">+234 (0) 1-BRIDGE-INFO</p>
+                            <p class="font-medium text-sm md:text-base">+234 (0) 1-BRIDGE-INFO</p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-10 rounded-3xl shadow-xl">
+                <div class="bg-white p-6 md:p-10 rounded-3xl shadow-xl">
                     <form onsubmit="event.preventDefault(); alert('Message sent! We will contact you soon.');">
-                        <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                             <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-2">First Name</label>
-                                <input type="text" class="w-full p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green" placeholder="John">
+                                <label class="block text-xs font-bold text-gray-700 mb-2">First Name</label>
+                                <input type="text" required class="w-full p-3 md:p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green" placeholder="John">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-2">Last Name</label>
-                                <input type="text" class="w-full p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green" placeholder="Doe">
+                                <label class="block text-xs font-bold text-gray-700 mb-2">Last Name</label>
+                                <input type="text" required class="w-full p-3 md:p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green" placeholder="Doe">
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Email</label>
-                            <input type="email" class="w-full p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green" placeholder="john@example.com">
+                            <label class="block text-xs font-bold text-gray-700 mb-2">Email</label>
+                            <input type="email" required class="w-full p-3 md:p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green" placeholder="john@example.com">
                         </div>
                         <div class="mb-6">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Message</label>
-                            <textarea class="w-full p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green h-32" placeholder="How can we help?"></textarea>
+                            <label class="block text-xs font-bold text-gray-700 mb-2">Message</label>
+                            <textarea required class="w-full p-3 md:p-4 bg-gray-50 border-0 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green h-24 md:h-32" placeholder="How can we help?"></textarea>
                         </div>
-                        <button class="w-full bg-nigeria-green text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition">Send Message</button>
+                        <button class="w-full bg-nigeria-green text-white py-3 md:py-4 rounded-xl font-bold text-base md:text-lg hover:shadow-lg transition">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -279,14 +321,14 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-16 mt-20">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 pb-16 border-b border-gray-800">
-            <div class="col-span-2">
+    <footer class="bg-gray-900 text-gray-400 py-12 md:py-16 mt-12 md:mt-20">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 md:pb-16 border-b border-gray-800">
+            <div class="lg:col-span-2">
                 <div class="flex items-center space-x-2 mb-6">
                     <div class="w-8 h-8 bg-nigeria-green rounded-full flex items-center justify-center"><i data-lucide="bridge" class="text-white w-4 h-4"></i></div>
                     <span class="text-xl font-bold text-white uppercase tracking-tight">THE BRIDGE <span class="text-nigeria-green">NIGERIA</span></span>
                 </div>
-                <p class="max-w-sm">Building pathways to success for every Nigerian youth through community-led social interventions.</p>
+                <p class="max-w-sm text-sm">Building pathways to success for every Nigerian youth through community-led social interventions.</p>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4">Pages</h4>
@@ -300,41 +342,41 @@
             <div>
                 <h4 class="text-white font-bold mb-4">Social</h4>
                 <div class="flex space-x-4">
-                    <a href="#" class="hover:text-white transition"><i data-lucide="instagram"></i></a>
-                    <a href="#" class="hover:text-white transition"><i data-lucide="twitter"></i></a>
-                    <a href="#" class="hover:text-white transition"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="hover:text-white transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto px-6 py-8 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-8 text-center text-[10px] md:text-xs">
             <p>&copy; 2024 The Bridge Nigeria. Registered NGO RC:12345678</p>
         </div>
     </footer>
 
     <!-- Donation Modal -->
-    <div id="donate-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center">
+    <div id="donate-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto px-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen pt-4 pb-20 text-center">
             <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" onclick="toggleModal('donate-modal')"></div>
             <div class="inline-block bg-white rounded-3xl text-left overflow-hidden shadow-xl transform transition-all sm:max-w-md w-full relative z-[101]">
-                <div class="px-8 py-8" id="donate-content">
+                <div class="px-6 md:px-8 py-8" id="donate-content">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-2xl font-bold">Donate to The Bridge</h3>
+                        <h3 class="text-xl md:text-2xl font-bold">Donate to The Bridge</h3>
                         <button onclick="toggleModal('donate-modal')" class="text-gray-400 hover:text-gray-600"><i data-lucide="x"></i></button>
                     </div>
                     <div class="space-y-4">
                         <div class="grid grid-cols-3 gap-2">
-                            <button onclick="setAmount(5000)" class="border border-gray-200 py-3 rounded-xl hover:bg-green-50 hover:border-nigeria-green transition font-bold">₦5k</button>
-                            <button onclick="setAmount(10000)" class="border border-gray-200 py-3 rounded-xl hover:bg-green-50 hover:border-nigeria-green transition font-bold">₦10k</button>
-                            <button onclick="setAmount(20000)" class="border border-gray-200 py-3 rounded-xl hover:bg-green-50 hover:border-nigeria-green transition font-bold">₦20k</button>
+                            <button onclick="setAmount(5000)" class="border border-gray-200 py-3 rounded-xl hover:bg-green-50 hover:border-nigeria-green transition font-bold text-sm">₦5k</button>
+                            <button onclick="setAmount(10000)" class="border border-gray-200 py-3 rounded-xl hover:bg-green-50 hover:border-nigeria-green transition font-bold text-sm">₦10k</button>
+                            <button onclick="setAmount(20000)" class="border border-gray-200 py-3 rounded-xl hover:bg-green-50 hover:border-nigeria-green transition font-bold text-sm">₦20k</button>
                         </div>
                         <input type="number" id="donate-input" placeholder="Custom Amount" class="w-full p-4 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-nigeria-green font-bold">
                         <button onclick="confirmDonation()" class="w-full bg-nigeria-green text-white py-4 rounded-xl font-bold hover:shadow-lg transition">Complete Payment</button>
                     </div>
                 </div>
                 <div id="donate-success" class="hidden px-8 py-16 text-center">
-                    <i data-lucide="check-circle" class="mx-auto w-16 h-16 text-nigeria-green mb-6"></i>
-                    <h3 class="text-3xl font-bold mb-2">Thank You!</h3>
-                    <p class="text-gray-500 mb-8">Your contribution will help us empower another Nigerian child today.</p>
+                    <i data-lucide="check-circle" class="mx-auto w-12 h-12 md:w-16 md:h-16 text-nigeria-green mb-6"></i>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-2">Thank You!</h3>
+                    <p class="text-gray-500 text-sm md:text-base mb-8">Your contribution will help empower another child today.</p>
                     <button onclick="toggleModal('donate-modal')" class="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold">Return</button>
                 </div>
             </div>
@@ -342,15 +384,15 @@
     </div>
 
     <!-- Info/Details Modal -->
-    <div id="info-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto" role="dialog" aria-modal="true">
+    <div id="info-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto px-4" role="dialog" aria-modal="true">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="fixed inset-0 bg-gray-900 bg-opacity-75" onclick="toggleModal('info-modal')"></div>
-            <div class="relative bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl">
+            <div class="relative bg-white rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 id="info-title" class="text-3xl font-bold text-nigeria-green"></h3>
+                    <h3 id="info-title" class="text-xl md:text-3xl font-bold text-nigeria-green"></h3>
                     <button onclick="toggleModal('info-modal')" class="text-gray-400 hover:text-gray-600"><i data-lucide="x"></i></button>
                 </div>
-                <p id="info-description" class="text-gray-600 text-lg leading-relaxed mb-8"></p>
+                <p id="info-description" class="text-gray-600 text-sm md:text-lg leading-relaxed mb-8"></p>
                 <button onclick="toggleModal('info-modal')" class="w-full border-2 border-gray-900 py-3 rounded-xl font-bold">Close Details</button>
             </div>
         </div>
@@ -360,25 +402,32 @@
         // Initialize Icons
         lucide.createIcons();
 
+        // Mobile Menu Toggle
+        function toggleMobileMenu(open) {
+            const menu = document.getElementById('mobile-menu');
+            if (open) {
+                menu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         // MULTI-PAGE ROUTING SYSTEM
         function navigateTo(pageId) {
-            // Hide all pages
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
-            // Remove active style from all nav links
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             
-            // Show requested page
             const targetPage = document.getElementById('page-' + pageId);
             if(targetPage) {
                 targetPage.classList.add('active');
-                window.scrollTo(0, 0); // Reset scroll position
+                window.scrollTo(0, 0); 
             }
 
-            // Highlight active nav link
             const targetNav = document.getElementById('nav-' + pageId);
             if(targetNav) targetNav.classList.add('active');
 
-            // Re-render icons if needed
             lucide.createIcons();
         }
 
@@ -397,6 +446,11 @@
                 document.getElementById('donate-success').classList.add('hidden');
             }
             
+            if (!modal.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
             lucide.createIcons();
         }
 
